@@ -97,7 +97,7 @@ Makefile
 
 ## 👨‍💻 Author
 
-**Omkar Ashok Sawant**
+**Omkar Ashok Sawant**  
 Embedded Systems Engineer
 
 ---
