@@ -1,0 +1,94 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"18 ./ds1307.h
+[v _read_ds1307 `(uc ~T0 @X0 0 ef1`uc ]
+"17
+[v _write_ds1307 `(v ~T0 @X0 0 ef2`uc`uc ]
+"6 ./i2c.h
+[v _i2c_start `(v ~T0 @X0 0 ef ]
+"9
+[v _i2c_write `(v ~T0 @X0 0 ef1`uc ]
+"8
+[v _i2c_stop `(v ~T0 @X0 0 ef ]
+"7
+[v _i2c_rep_start `(v ~T0 @X0 0 ef ]
+"10
+[v _i2c_read `(uc ~T0 @X0 0 ef ]
+"10 ds1307.c
+[v _init_ds1307 `(v ~T0 @X0 1 ef ]
+"11
+{
+[e :U _init_ds1307 ]
+[f ]
+"12
+[v _dummy `uc ~T0 @X0 1 a ]
+"15
+[e = _dummy ( _read_ds1307 (1 -> -> 0 `i `uc ]
+"16
+[e ( _write_ds1307 (2 , -> -> 0 `i `uc -> | -> _dummy `i -> 128 `i `uc ]
+"19
+[e = _dummy ( _read_ds1307 (1 -> -> 2 `i `uc ]
+"20
+[e ( _write_ds1307 (2 , -> -> 2 `i `uc -> | -> _dummy `i -> 64 `i `uc ]
+"39
+[e ( _write_ds1307 (2 , -> -> 7 `i `uc -> -> 147 `i `uc ]
+"42
+[e = _dummy ( _read_ds1307 (1 -> -> 0 `i `uc ]
+"43
+[e ( _write_ds1307 (2 , -> -> 0 `i `uc -> & -> _dummy `i -> 127 `i `uc ]
+"45
+[e :UE 1 ]
+}
+"47
+[v _write_ds1307 `(v ~T0 @X0 1 ef2`uc`uc ]
+"48
+{
+[e :U _write_ds1307 ]
+"47
+[v _address `uc ~T0 @X0 1 r1 ]
+[v _data `uc ~T0 @X0 1 r2 ]
+"48
+[f ]
+"49
+[e ( _i2c_start ..  ]
+"50
+[e ( _i2c_write (1 -> -> 208 `i `uc ]
+"51
+[e ( _i2c_write (1 _address ]
+"52
+[e ( _i2c_write (1 _data ]
+"53
+[e ( _i2c_stop ..  ]
+"54
+[e :UE 2 ]
+}
+"56
+[v _read_ds1307 `(uc ~T0 @X0 1 ef1`uc ]
+"57
+{
+[e :U _read_ds1307 ]
+"56
+[v _address `uc ~T0 @X0 1 r1 ]
+"57
+[f ]
+"58
+[v _data `uc ~T0 @X0 1 a ]
+"60
+[e ( _i2c_start ..  ]
+"61
+[e ( _i2c_write (1 -> -> 208 `i `uc ]
+"62
+[e ( _i2c_write (1 _address ]
+"63
+[e ( _i2c_rep_start ..  ]
+"64
+[e ( _i2c_write (1 -> -> 209 `i `uc ]
+"65
+[e = _data ( _i2c_read ..  ]
+"66
+[e ( _i2c_stop ..  ]
+"68
+[e ) _data ]
+[e $UE 3  ]
+"69
+[e :UE 3 ]
+}
